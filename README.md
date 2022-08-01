@@ -7,6 +7,7 @@ Credits go to Nenkai for figuring out how to decrypt the telemetry packets from 
 ## Tools included
 * `GT7Logger` - Collectiong data with some realtime visualization, saving data and extracting track data
 * `GT7Visualizer` - Simple displaying of extracted track data
+* Binaries can be found here <a href="https://github.com/RealJean42/GT7Analyzer/releases/tag/v0.1.0">Binary download</a>. .NET6 runtimes must be installed
 
 # GT7Logger
 ### Configuration
