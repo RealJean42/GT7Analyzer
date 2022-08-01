@@ -17,6 +17,7 @@ By starting the recording all data from the PS7 will be captured and stored in m
 <img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/Collecting.PNG"></img>
 ### Saving collected data
 You can save your collected data completely or by lap. You may chose between CSV and JSON format. 3D vectors are tricky to save in the csv. Order in the csv: Position, Velocity and AngularVelocity.
+`Save as JSON to extract track`
 <img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/Extracting.PNG"></img>
 ### Collect and save track data
 There is a simplistic way to gather track data. In one sentence: Ride the lines!
