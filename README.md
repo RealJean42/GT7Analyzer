@@ -21,18 +21,18 @@ You can save your collected data completely or by lap. You may chose between CSV
 There is a simplistic way to gather track data. In one sentence: Ride the lines!
 Select the track you want to create and use a time trial with racing line enabled.
 I suggest to make 5 laps:
-1 Lap: Ride the racing line as close as possible. Speed doesn't matter. I suggest half the speed you usally would
-2 Lap: Have some fun and prepare to do the left border of the track
-3 Lap: Ride left track border line as close as possible. I suggest driving slow in corners and not more tha 160 km/h on straights.
-4 Lap: Free lap, prepare for right border of the track
-5 Lap:Ride right track border as close as possible
+* 1 Lap: Ride the racing line as close as possible. Speed doesn't matter. I suggest half the speed you usally would
+* 2 Lap: Have some fun and prepare to do the left border of the track
+* 3 Lap: Ride left track border line as close as possible. I suggest driving slow in corners and not more tha 160 km/h on straights.
+* 4 Lap: Free lap, prepare for right border of the track
+* 5 Lap:Ride right track border as close as possible
 
 The data for the left and right track boarder will be reduced when saving. Before saving the track you can chose which lap is for which line. If you mess up lap 5 you may add a 6th lap and chose that as the right border.
 
 I added some example track in /GT7Data/Tracks
 # GT7Visualizer
 Start GT7Visualizer and select a track to visualize
-<img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/Visualize.PNG"></img>
+<img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/visualize.PNG"></img>
 # Next steps
 Adding lap selector to visualization and compare laps (line, speed, throttle, brake, time delta,etc)
 I'm planning to use the racing line from the track data as positional reference for delta time evaluations.
