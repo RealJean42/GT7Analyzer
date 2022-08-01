@@ -5,7 +5,7 @@ The final goal is to be able to compare laps to each other to improve lap times.
 Credits go to Nenkai for figuring out how to decrypt the telemetry packets from the game and providing an interface with his PDTools https://github.com/Nenkai/PDTools/tree/master/PDTools.SimulatorInterface
 
 ## Tools included
-* `GT7Logger` - Collectiong data with some realtime visualization, saving data and extracting track data
+* `GT7Logger` - Collecting data with some realtime visualization, saving data and extracting track data
 * `GT7Visualizer` - Simple displaying of extracted track data
 * Binaries can be found here <a href="https://github.com/RealJean42/GT7Analyzer/releases/tag/v0.1.0">Binary download</a>. .NET6 runtimes must be installed
 
@@ -22,11 +22,14 @@ You can save your collected data completely or by lap. You may chose between CSV
 There is a simplistic way to gather track data. In one sentence: Ride the lines!
 Select the track you want to create and use a time trial with racing line enabled.
 I suggest to make 5 laps:
-* 1 Lap: Ride the racing line as close as possible. Speed doesn't matter. I suggest half the speed you usally would
+* 1 Lap: Ride the racing line as close as possible. Speed doesn't matter. I suggest half the speed you usually would
+<img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/Raceline.jpg"></img>
 * 2 Lap: Have some fun and prepare to do the left border of the track
 * 3 Lap: Ride left track border line as close as possible. I suggest driving slow in corners and not more tha 160 km/h on straights.
+<img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/TrackLeft.jpg"></img>
 * 4 Lap: Free lap, prepare for right border of the track
 * 5 Lap:Ride right track border as close as possible
+<img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/TrackRight.jpg"></img>
 
 The data for the left and right track boarder will be reduced when saving. Before saving the track you can chose which lap is for which line. If you mess up lap 5 you may add a 6th lap and chose that as the right border.
 
