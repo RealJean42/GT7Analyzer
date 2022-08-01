@@ -3,7 +3,7 @@ Some experiments collecting, processing and visualizing telemetry data from GT7.
 The final goal is to be able to compare laps to each other to improve lap times.
 
 Credits go to Nenkai for figuring out how to decrypt the telemetry packets from the game and providing an interface with his PDTools https://github.com/Nenkai/PDTools/tree/master/PDTools.SimulatorInterface
-
+ 
 ## Tools included
 * `GT7Logger` - Collecting data with some realtime visualization, saving data and extracting track data
 * `GT7Visualizer` - Simple displaying of extracted track data
