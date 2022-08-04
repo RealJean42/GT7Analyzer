@@ -43,7 +43,7 @@ Start GT7Visualizer and select a track to visualize
 Adding lap selector to visualization and compare laps (line, speed, throttle, brake, time delta,etc)
 I'm planning to use the racing line from the track data as positional reference for delta time evaluations.
 
-#Example data
+# Example data
 Some telemetry and track data examples in JSON and CSV can be found in the folder "exampleData".
 The data is currently a subset of the complete data but can be extended easly if needed.
 
