@@ -33,7 +33,6 @@ I suggest to make 5 laps:
 
 The data for the left and right track boarder will be reduced when saving. Before saving the track you can chose which lap is for which line. If you mess up lap 5 you may add a 6th lap and chose that as the right border.
 
-I added some example track in /GT7Data/Tracks
 # GT7Visualizer
 Start GT7Visualizer and select a track to visualize
 <img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/visualize.PNG"></img>
@@ -41,3 +40,32 @@ Start GT7Visualizer and select a track to visualize
 Adding lap selector to visualization and compare laps (line, speed, throttle, brake, time delta,etc)
 I'm planning to use the racing line from the track data as positional reference for delta time evaluations.
 
+#Example data
+Some telemetry and track data examples in JSON and CSV can be found in the folder "exampleData".
+The data is currently a subset of the complete data but can be extended easly if needed.
+
+Current JSON example data record:
+```json
+[
+  {
+    "Timestamp": "08:09:26.0460000",
+    "CarCode": 1973,
+    "Lap": 1,
+    "Throttle": 255,
+    "Brake": 0,
+    "Gear": 4,
+    "SpeedMS": 40.42767,
+    "Steering": 0,
+    "EngineRPM": 5296.4834,
+    "Position": {
+      "X": 100.589,
+      "Y": 1.913549,
+      "Z": 127.85916
+    },
+    "Velocity": {
+      "X": -16.723803,
+      "Y": 1.4781482,
+      "Z": 36.776703
+    }
+]
+```
