@@ -50,6 +50,7 @@ The data is currently a subset of the complete data but can be extended easly if
 Current JSON example data record:
 ```json
 [
+[
   {
     "Timestamp": "08:09:26.0460000",
     "CarCode": 1973,
@@ -69,6 +70,16 @@ Current JSON example data record:
       "X": -16.723803,
       "Y": 1.4781482,
       "Z": 36.776703
-    }
+    },
+    "AngularVelocity": {
+      "X": 0.1004381,
+      "Y": -0.05264253,
+      "Z": 0.12888853
+    },
+    "TireTemp_FL": 59.96517,
+    "TireTemp_FR": 59.608006,
+    "TireTemp_RL": 56.630722,
+    "TireTemp_RR": 56.288864
+  }
 ]
 ```
