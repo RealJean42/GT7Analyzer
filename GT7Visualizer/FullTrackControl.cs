@@ -29,10 +29,6 @@ namespace GT7Visualizer
             if (DataManager?.Track!=null && TrackBmp != null)
             {
                 float scale = TrackBmp.Width > TrackBmp.Height ? this.Width / (float)TrackBmp.Width : this.Height / (float)TrackBmp.Height;
-                int clipWidth = this.Width;
-                int clipHeight = this.Height;
-                //var buffer = new Bitmap(TrackBmp.Width, TrackBmp.Height);
-                //var g = Graphics.FromImage(buffer);
                 var g = Gfx.Graphics;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 Rectangle src = new Rectangle(0, 0, TrackBmp.Width, TrackBmp.Height);
