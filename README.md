@@ -83,3 +83,7 @@ Current JSON example data record:
   }
 ]
 ```
+# Credits
+
+* Nenkai for figuring out how to decrypt the telemetry packets from the game and providing an interface with his PDTools https://github.com/Nenkai/PDTools/tree/master/PDTools.SimulatorInterface
+* gti_sdn for tracking Brands Hatch (added to example tracks)
