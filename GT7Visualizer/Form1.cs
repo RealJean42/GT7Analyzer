@@ -6,14 +6,18 @@ namespace GT7Visualizer
     public partial class Form1 : Form
     {
         private string _dataRoot = "";
-        private Track Track { get; set; }
+        private TelemetryManager DataManager { get; set; }
+
         public Form1()
         {
             InitializeComponent();
             _dataRoot = System.Configuration.ConfigurationManager.AppSettings["dataroot"] + "";
+            DataManager = new TelemetryManager();
+            chkRaceline.Checked = true;
 
         }
 
+        #region trackhandling
         private void btnLoadTrack_Click(object sender, EventArgs e)
         {
             TrackManager trackManager = new TrackManager();
@@ -25,12 +29,13 @@ namespace GT7Visualizer
 
             if (openFileDialog1.FileName != "")
             {
-                Track = trackManager.LoadTrack(openFileDialog1.FileName);
-                if(Track!=null)
+                DataManager.Track = trackManager.LoadTrack(openFileDialog1.FileName);
+                if(DataManager.Track != null)
                 {
-                    lblDimX.Text = @$"{Track.MinX.ToString("F2")}/{Track.MaxX.ToString("F2")}";
-                    lblDimY.Text = $"{Track.MinZ.ToString("F2")}/{Track.MaxZ.ToString("F2")}";
-                    SetupCanvas();
+                    lblTrackname.Text = DataManager.Track.Name;
+                    lblDimX.Text = @$"{DataManager.Track.MinX.ToString("F2")}/{DataManager.Track.MaxX.ToString("F2")}";
+                    lblDimY.Text = $"{DataManager.Track.MinZ.ToString("F2")}/{DataManager.Track.MaxZ.ToString("F2")}";
+                    SetuptrackCanvas();
                 }
                 else
                 {
@@ -40,44 +45,36 @@ namespace GT7Visualizer
             }
         }
 
-        private void SetupCanvas()
+        private void SetuptrackCanvas()
         {
-            int sizeX = Convert.ToInt32(Math.Abs(Track.MinX) + Track.MaxX + 100);
-            int sizeY = Convert.ToInt32(Math.Abs(Track.MinZ) + Track.MaxZ + 100);
-            int xOffset = Convert.ToInt32(Math.Abs(Track.MinX) + 50);
-            int yOffset = Convert.ToInt32(Math.Abs(Track.MinZ) + 50);
-            Bitmap map = new Bitmap(sizeX, sizeY);
-            Graphics g = Graphics.FromImage(map);
-            g.InterpolationMode = InterpolationMode.Bicubic; 
-            
-            Pen myPen = new Pen(Color.OrangeRed);
-            myPen.Width = 2;
-            List<Point> points = new List<Point>();
-            foreach (var point in Track.Raceline)
-            {
-                points.Add(new Point(Convert.ToInt32(point.Position.X + xOffset), Convert.ToInt32(point.Position.Z + yOffset)));
-             }
-            g.DrawLines(myPen, points.ToArray());
+            ctlFullTrack.InitializeTrack(DataManager, false);
+            ctlTrack.InitializeTrack(DataManager, chkRaceline.Checked);
+            ctlTrack.SetZoom(barZoom.Value);
+            ctlTrack.SetPosition(DataManager.CurrentPosition);
+            ctlFullTrack.SetPosition(DataManager.CurrentPosition);
+        }
+        #endregion trackhandling
 
-            myPen.Dispose();
-            myPen = new Pen(Color.Black);
-            myPen.Width = 1;
-            points = new List<Point>();
-            foreach (var point in Track.TrackLeft)
+        private void barZoom_ValueChanged(object sender, EventArgs e)
+        {
+            ctlTrack.SetZoom(barZoom.Value);
+        }
+
+        private void barLapPos_ValueChanged(object sender, EventArgs e)
+        {
+            if(DataManager?.Track!=null)
             {
-                points.Add(new Point(Convert.ToInt32(point.Position.X + xOffset), Convert.ToInt32(point.Position.Z + yOffset)));
+                int samples = DataManager.Track.Raceline.Count;
+                int index = samples * barLapPos.Value / barLapPos.Maximum;
+                DataManager.CurrentPosition = DataManager.Track.Raceline[index-1].Position;
+                ctlTrack.SetPosition(DataManager.CurrentPosition);
+                ctlFullTrack.SetPosition(DataManager.CurrentPosition);
             }
-            g.DrawLines(myPen, points.ToArray());
+        }
 
-            points = new List<Point>();
-            foreach (var point in Track.TrackRight)
-            {
-                points.Add(new Point(Convert.ToInt32(point.Position.X + xOffset), Convert.ToInt32(point.Position.Z + yOffset)));
-            }
-
-            g.DrawLines(myPen, points.ToArray());
-            pictureBox1.Image = map;
-
+        private void chkRaceline_CheckedChanged(object sender, EventArgs e)
+        {
+            ctlTrack.ShowRaceline = chkRaceline.Checked;
         }
     }
 }

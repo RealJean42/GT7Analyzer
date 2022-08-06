@@ -1,16 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.1;net6.0</TargetFrameworks>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Tracks\**" />
+      <EmbeddedResource Remove="Tracks\**" />
+      <None Remove="Tracks\**" />
+    </ItemGroup>
 
     <ItemGroup>
     <PackageReference Include="CsvHelper" Version="28.0.1" />
     <PackageReference Include="System.Text.Json" Version="6.0.5" />
   </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Tracks\" />
-    </ItemGroup>
 
 </Project>
