@@ -71,7 +71,7 @@ namespace GT7Logger
             // Cancel token from outside source to end simulator
             lstDebug.Items.Add("Simulator Interface starting..");
             _cts = new CancellationTokenSource();
-            var task = simInterface.Start(_cts);
+            var task = simInterface.Start(_cts.Token);
 
             try
             {
@@ -92,10 +92,9 @@ namespace GT7Logger
             }
         }
 
-        private void SimInterface_OnReceive(SimulatorPacketBase packet)
+        private void SimInterface_OnReceive(SimulatorPacket gt7Packet)
         {
             // Do something with game specific packet
-            var gt7Packet = packet as SimulatorPacketG7S0;
             if (gt7Packet != null)
             {
                 var tele= AddData(gt7Packet);
@@ -150,7 +149,7 @@ namespace GT7Logger
             return Color.FromArgb(red>255?255:red, green > 255 ? 255 : green, blue);
         }
 
-        private Telemetry AddData(SimulatorPacketG7S0 data)
+        private Telemetry AddData(SimulatorPacket data)
         {
             if(data!=null)
             {

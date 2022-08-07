@@ -38,7 +38,7 @@ The data for the left and right track boarder will be reduced when saving. Befor
 
 # GT7Visualizer
 Start GT7Visualizer and select a track to visualize
-<img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/visualize2.PNG"></img>
+<img src="https://github.com/RealJean42/GT7Analyzer/blob/master/Docs/Images/visualize3.PNG"></img>
 # Next steps
 Adding lap selector to visualization and compare laps (line, speed, throttle, brake, time delta,etc)
 I'm planning to use the racing line from the track data as positional reference for delta time evaluations.

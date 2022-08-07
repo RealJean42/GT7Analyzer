@@ -94,8 +94,10 @@ namespace GT7Visualizer
             Pen myPen = new Pen(Color.LightBlue);
             myPen.Width = Convert.ToInt32(ChartBmp.Width/this.Width*2);
             g.DrawLine(myPen, Convert.ToInt32(index * ScaleX), 0, Convert.ToInt32(index * ScaleX), ChartBmp.Height);
-            var font = this.Font;
-            TextRenderer.DrawText(g, line.Samples[index].ToString("F2"), this.Font, new Point(Convert.ToInt32((index + 10)*ScaleX), Convert.ToInt32(this.Height - (line.GetSampleConverted(index)*ScaleY))), line.LineColor);
+            if (index < line.Samples.Count)
+            {
+                TextRenderer.DrawText(g, line.Samples[index].ToString("F2"), this.Font, new Point(Convert.ToInt32((index + 10) * ScaleX), Convert.ToInt32(this.Height - (line.GetSampleConverted(index) * ScaleY))), line.LineColor);
+            }
         }
 
         protected virtual void DrawChart()

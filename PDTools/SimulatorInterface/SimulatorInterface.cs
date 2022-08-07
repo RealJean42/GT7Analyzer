@@ -9,6 +9,7 @@ using System.Numerics;
 using System.Threading;
 using System.IO;
 
+using Syroot.BinaryData.Memory;
 
 using PDTools.Crypto.SimulationInterface;
 
@@ -35,7 +36,11 @@ namespace PDTools.SimulatorInterface
         public int ReceivePort { get; }
         public int BindPort { get; }
 
-        public delegate void SimulatorDelegate(SimulatorPacketBase packet);
+        public delegate void SimulatorDelegate(SimulatorPacket packet);
+
+        /// <summary>
+        /// Fired from a packet from the GT Engine Simulation is sent.
+        /// </summary>
         public event SimulatorDelegate OnReceive;
 
         public bool Started { get; private set; }
@@ -76,10 +81,11 @@ namespace PDTools.SimulatorInterface
 
         /// <summary>
         /// Starts the simulator interface.
+        /// This can be started anytime - during the game's boot process or in a race.
         /// </summary>
         /// <param name="cts">Cancellation token to stop the interface.</param>
         /// <returns></returns>
-        public async Task Start(CancellationTokenSource cts = default)
+        public async Task Start(CancellationToken token = default)
         {
             if (Started)
                 throw new InvalidOperationException("Simulator Interface already started.");
@@ -93,12 +99,12 @@ namespace PDTools.SimulatorInterface
             while (true)
             {
                 if ((DateTime.UtcNow - _lastSentHeartbeat).TotalSeconds > SendDelaySeconds)
-                    await SendHeartbeat(cts.Token);
+                    await SendHeartbeat(token);
 
 #if NET6_0_OR_GREATER
-                UdpReceiveResult result = await _udpClient.ReceiveAsync(cts.Token);
+                UdpReceiveResult result = await _udpClient.ReceiveAsync(token);
 #else
-                UdpReceiveResult result = await _udpClient.ReceiveAsync().WithCancellation(cts.Token);
+                UdpReceiveResult result = await _udpClient.ReceiveAsync().WithCancellation(token);
 #endif
 
                 if (result.Buffer.Length != 0x128)
@@ -106,17 +112,17 @@ namespace PDTools.SimulatorInterface
 
                 _cryptor.Decrypt(result.Buffer);
 
-                SimulatorPacketBase packet = InitPacket(SimulatorGameType);
+                SimulatorPacket packet = new SimulatorPacket();
                 packet.SetPacketInfo(SimulatorGameType, result.RemoteEndPoint, DateTimeOffset.Now);
                 packet.Read(result.Buffer);
 
-                if (cts.IsCancellationRequested)
-                    cts.Token.ThrowIfCancellationRequested();
+                if (token.IsCancellationRequested)
+                    token.ThrowIfCancellationRequested();
 
                 this.OnReceive(packet);
 
-                if (cts.IsCancellationRequested)
-                    cts.Token.ThrowIfCancellationRequested();
+                if (token.IsCancellationRequested)
+                    token.ThrowIfCancellationRequested();
             }
         }
 
@@ -142,26 +148,11 @@ namespace PDTools.SimulatorInterface
             }
             else if (gameType == SimulatorInterfaceGameType.GT6)
             {
-                throw new NotSupportedException($"'{gameType}' is not supported yet.");
-
                 _cryptor = new SimulatorInterfaceCryptorGT6();
             }
             else
             {
-                throw new NotSupportedException($"'{gameType}' is not supported yet.");
-            }
-        }
-
-        private SimulatorPacketBase InitPacket(SimulatorInterfaceGameType gameType)
-        {
-            switch (gameType)
-            {
-                case SimulatorInterfaceGameType.GT7:
-                case SimulatorInterfaceGameType.GTSport:
-                    return new SimulatorPacketG7S0();
-
-                default:
-                    throw new NotSupportedException($"'{gameType}' is not supported yet.");
+                throw new NotSupportedException($"'{gameType}' is not supported.");
             }
         }
 

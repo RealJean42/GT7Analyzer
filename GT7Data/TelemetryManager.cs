@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace GT7Data
 {
     public class TelemetryManager
     {
+        private List<Color> LapColors = new List<Color>() { 
+            Color.White, 
+            Color.Beige, 
+            Color.LightCoral, 
+            Color.LightGreen, 
+            Color.LightSalmon, 
+            Color.LightYellow 
+        };
         public Track Track { get; set; }
 
         public Vector3Ser CurrentPosition { get; set; } = new Vector3Ser();
@@ -33,7 +42,7 @@ namespace GT7Data
                     switch(dataType)
                     {
                         case DataType.Speed:
-                            line.Samples.Add(entry.SpeedMS);
+                            line.Samples.Add(entry.SpeedMS * 3.6f);
                             break;
                         case DataType.Throttle:
                             line.Samples.Add(entry.Throttle);
@@ -47,6 +56,44 @@ namespace GT7Data
                 }
             }
             return line;
+        }
+
+        public List<LapData> ConvertToLapList(IList<Telemetry> telemetry)
+        {
+            List<LapData> list = new List<LapData>();
+
+            Vector3Ser start = null;
+            int lastLap = 0;
+            TimeSpan startTime=TimeSpan.Zero;
+            Telemetry lastData = null;
+            LapData currentLap = null;
+            // don't know the position of the startline. Take first data from first lap as reference
+            foreach(var data in telemetry)
+            {
+                if(data.Lap>0)
+                {
+                    // check for first entry in lap
+                    if(lastLap<data.Lap)
+                    {
+                        if(lastLap==0)
+                        {
+                            start = data.Position;
+                        }
+                        if(currentLap!=null)
+                        {
+                            // todo. Calculate exact time
+                            currentLap.Laptime = data.Timestamp - startTime;
+                            list.Add(currentLap);
+                        }
+                        startTime = data.Timestamp;
+                        currentLap = new LapData { Lap = data.Lap, LapId="Lap1", LineColor= LapColors[data.Lap%LapColors.Count] };
+                    }
+                    currentLap.TelemetryList.Add(data);
+                    lastData = data;
+                    lastLap = data.Lap;
+                }
+            }
+            return list;
         }
     }
 }

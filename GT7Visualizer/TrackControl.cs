@@ -15,6 +15,8 @@ namespace GT7Visualizer
 
         public TelemetryManager DataManager { get; set; }
 
+        public LapData CurrentLap { get; set; }
+
         protected int _border = 50;
         private bool _showRaceline=false;
         public bool ShowRaceline 
