@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnLoadTrack = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblDimX = new System.Windows.Forms.Label();
-            this.lblDimY = new System.Windows.Forms.Label();
             this.lblTrackname = new System.Windows.Forms.Label();
             this.barZoom = new System.Windows.Forms.TrackBar();
             this.ctlTrack = new GT7Visualizer.TrackControl();
             this.barLapPos = new System.Windows.Forms.TrackBar();
             this.chkRaceline = new System.Windows.Forms.CheckBox();
             this.ctlFullTrack = new GT7Visualizer.FullTrackControl();
+            this.ctlSpeed = new GT7Visualizer.ChartControl();
             ((System.ComponentModel.ISupportInitialize)(this.barZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barLapPos)).BeginInit();
             this.SuspendLayout();
@@ -52,42 +50,6 @@
             this.btnLoadTrack.Text = "Load track";
             this.btnLoadTrack.UseVisualStyleBackColor = true;
             this.btnLoadTrack.Click += new System.EventHandler(this.btnLoadTrack_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(345, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 15);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "X (min/max):";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(513, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Z (min/max):";
-            // 
-            // lblDimX
-            // 
-            this.lblDimX.AutoSize = true;
-            this.lblDimX.Location = new System.Drawing.Point(428, 16);
-            this.lblDimX.Name = "lblDimX";
-            this.lblDimX.Size = new System.Drawing.Size(24, 15);
-            this.lblDimX.TabIndex = 4;
-            this.lblDimX.Text = "0/0";
-            // 
-            // lblDimY
-            // 
-            this.lblDimY.AutoSize = true;
-            this.lblDimY.Location = new System.Drawing.Point(596, 16);
-            this.lblDimY.Name = "lblDimY";
-            this.lblDimY.Size = new System.Drawing.Size(24, 15);
-            this.lblDimY.TabIndex = 5;
-            this.lblDimY.Text = "0/0";
             // 
             // lblTrackname
             // 
@@ -152,21 +114,31 @@
             this.ctlFullTrack.TabIndex = 12;
             this.ctlFullTrack.Text = "fullTrackControl1";
             // 
+            // ctlSpeed
+            // 
+            this.ctlSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ctlSpeed.BackColor = System.Drawing.Color.Navy;
+            this.ctlSpeed.CurrentPositionIndex = 0;
+            this.ctlSpeed.ForeColor = System.Drawing.Color.White;
+            this.ctlSpeed.Location = new System.Drawing.Point(12, 307);
+            this.ctlSpeed.Name = "ctlSpeed";
+            this.ctlSpeed.Size = new System.Drawing.Size(1414, 160);
+            this.ctlSpeed.TabIndex = 13;
+            this.ctlSpeed.Text = "chartControl1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1438, 849);
+            this.Controls.Add(this.ctlSpeed);
             this.Controls.Add(this.ctlFullTrack);
             this.Controls.Add(this.chkRaceline);
             this.Controls.Add(this.barLapPos);
             this.Controls.Add(this.ctlTrack);
             this.Controls.Add(this.barZoom);
             this.Controls.Add(this.lblTrackname);
-            this.Controls.Add(this.lblDimY);
-            this.Controls.Add(this.lblDimX);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnLoadTrack);
             this.DoubleBuffered = true;
             this.Name = "Form1";
@@ -181,15 +153,12 @@
         #endregion
 
         private Button btnLoadTrack;
-        private Label label1;
-        private Label label2;
-        private Label lblDimX;
-        private Label lblDimY;
         private Label lblTrackname;
         private TrackBar barZoom;
         private TrackControl ctlTrack;
         private TrackBar barLapPos;
         private CheckBox chkRaceline;
         private FullTrackControl ctlFullTrack;
+        private ChartControl ctlSpeed;
     }
 }

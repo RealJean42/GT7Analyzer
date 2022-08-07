@@ -16,6 +16,9 @@
       <Compile Update="FullTrackControl.cs">
         <SubType>Component</SubType>
       </Compile>
+      <Compile Update="ChartControl.cs">
+        <SubType>Component</SubType>
+      </Compile>
     </ItemGroup>
 
 </Project>

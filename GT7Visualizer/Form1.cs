@@ -33,16 +33,17 @@ namespace GT7Visualizer
                 if(DataManager.Track != null)
                 {
                     lblTrackname.Text = DataManager.Track.Name;
-                    lblDimX.Text = @$"{DataManager.Track.MinX.ToString("F2")}/{DataManager.Track.MaxX.ToString("F2")}";
-                    lblDimY.Text = $"{DataManager.Track.MinZ.ToString("F2")}/{DataManager.Track.MaxZ.ToString("F2")}";
                     SetuptrackCanvas();
+                    SetupSpeedChart();
                 }
                 else
                 {
-                    lblDimX.Text = "0/0";
-                    lblDimX.Text = "0/0";
+                    lblTrackname.Text = "";
                 }
             }
+            ctlTrack.Refresh();
+            ctlFullTrack.Refresh();
+            ctlSpeed.Refresh();
         }
 
         private void SetuptrackCanvas()
@@ -55,6 +56,28 @@ namespace GT7Visualizer
         }
         #endregion trackhandling
 
+        private void SetupSpeedChart()
+        {
+            // max speed from data
+            float maxSpeed = 280;
+            if (DataManager?.ReferenceLap?.TelemetryList != null)
+                maxSpeed = DataManager.ReferenceLap.TelemetryList.Max(t => t.SpeedMS)*3.6f;
+            ctlSpeed.InitializeChart(0, maxSpeed, DataManager.Track.Raceline.Count, DataManager.SampleStep);
+            ctlSpeed.Lines.Add(ConvertRaceline(DataManager.Track.Raceline));
+            ctlSpeed.SetPositionIndex(DataManager.CurrentPositionIndex);
+        }
+
+        private Chartline ConvertRaceline(IList<Raceline> raceline)
+        {
+            Chartline line = new Chartline();
+            line.Type = DataType.Speed;
+            line.LapId = (int)DataType.Speed + "_0";
+            foreach(var entry in raceline)
+            {
+                line.Samples.Add(entry.SpeedMS*3.6f);
+            }
+            return line;
+        }
         private void barZoom_ValueChanged(object sender, EventArgs e)
         {
             ctlTrack.SetZoom(barZoom.Value);
@@ -66,9 +89,11 @@ namespace GT7Visualizer
             {
                 int samples = DataManager.Track.Raceline.Count;
                 int index = samples * barLapPos.Value / barLapPos.Maximum;
+                DataManager.CurrentPositionIndex = index - 1;
                 DataManager.CurrentPosition = DataManager.Track.Raceline[index-1].Position;
                 ctlTrack.SetPosition(DataManager.CurrentPosition);
                 ctlFullTrack.SetPosition(DataManager.CurrentPosition);
+                ctlSpeed.SetPositionIndex(DataManager.CurrentPositionIndex);
             }
         }
 
